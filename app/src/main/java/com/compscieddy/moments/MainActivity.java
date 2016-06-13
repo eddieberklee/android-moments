@@ -2,7 +2,6 @@ package com.compscieddy.moments;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
@@ -13,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
 
   @BindView(R.id.tab_layout) TabLayout mTabLayout;
   @BindView(R.id.view_pager) ViewPager mViewPager;
-  private PagerAdapter mPagerAdapter;
+  private DaysPagerAdapter mPagerAdapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -27,5 +26,11 @@ public class MainActivity extends AppCompatActivity {
     mPagerAdapter = new DaysPagerAdapter(getSupportFragmentManager(), MainActivity.this, mTabLayout.getTabCount());
     mViewPager.setAdapter(mPagerAdapter);
     mTabLayout.setupWithViewPager(mViewPager);
+    for (int i = 0; i < mTabLayout.getTabCount(); i++) {
+      TabLayout.Tab t = mTabLayout.getTabAt(i);
+      t.setCustomView(mPagerAdapter.getTabView(i));
+    }
   }
+
+
 }
