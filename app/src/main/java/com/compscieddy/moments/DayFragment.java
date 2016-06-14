@@ -6,10 +6,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -20,6 +25,8 @@ public class DayFragment extends Fragment {
     private static final String TAB_INDEX_ARG = "tab_index_arg";
     @BindView(R.id.fragment_day_wakeUpTime)
     TextView wakeUpTime;
+    @BindView(R.id.fragment_day_wakeUp_layout)
+    FrameLayout wakeUpLayout;
     private ViewGroup mRootView;
     private int tabIndex;
     private Unbinder unbinder;
@@ -41,6 +48,23 @@ public class DayFragment extends Fragment {
         unbinder = ButterKnife.bind(DayFragment.this, mRootView);
         return mRootView;
     }
+
+    @OnClick(R.id.fragment_day_btnWakeUp)
+    void onWakeUpClick() {
+
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        String date = dateFormat.format(c.getTime());
+
+        wakeUpTime.setText(date);
+
+
+        utilz.tmsg(getActivity(), "Any random quote");
+
+        wakeUpLayout.setVisibility(View.GONE);
+    }
+
+
 
 
     @Override
